@@ -1,3 +1,11 @@
+#project folders to ignore # start
+
+old
+cmake-build-debug
+
+
+#end
+
 # Prerequisites
 *.d
 
