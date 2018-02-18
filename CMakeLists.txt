@@ -19,8 +19,7 @@ file(COPY log DESTINATION ".")
 
 #set(INCLUDE_FILES test_json.cpp)
 set(SOURCE_FILES include/app/container.cpp include/app/routes.cpp include/object.hpp)
-
-set(SOURCE_FILES src/main.cpp)
+set(SOURCE_FILES src/main.cpp src/include/app/utils.cpp src/include/app/utils.hpp src/include/app/logger.cpp src/include/app/logger.h)
 
 set(CMAKE_EXE_LINKER_FLAGS "-O3 -lboost_system -lboost_thread-mt -rdynamic -stdlib=libc++")
 

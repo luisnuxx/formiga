@@ -6,12 +6,9 @@
 #include <string>
 #include <signal.h>
 #include "container.hpp"
-
-#include <boost/filesystem.hpp>
-#include <boost/dll/runtime_symbol_info.hpp>
+#include <utils.hpp>
 
 namespace spd = spdlog;
-namespace fs = boost::filesystem;
 
 void sighandler(int sig)
 {
@@ -19,25 +16,15 @@ void sighandler(int sig)
     exit(0);
 }
 
-void functionA(const std::shared_ptr<AppObject>& obj){
+void run(const std::shared_ptr<AppObject>& obj){
     obj->getRouter()->port(18080).multithreaded().run();
 }
 
-void printWorkingDir() {
-    //current working directory
-    fs::path path1(boost::dll::program_location());
-
-    std::cout << path1 << std::endl;
-
-   // std::cout << full_path.stem() << std::endl;
-    //std::cout << fs::basepath(full_path) << std::endl;
-}
 
 
 int main()
 {
-    printWorkingDir();
-
+    std::cout << "Working directory:: " << luisnuxx::getWorkingDir() << endl;
 
     signal(SIGABRT, &sighandler);
     signal(SIGTERM, &sighandler);
@@ -45,15 +32,16 @@ int main()
 
     auto obj = std::make_shared<AppObject>();
 
-   // AppObject *obj = new AppObject();
+   // AppObject *obj = new AppObject(); (old)
     obj->logger->debug("Application started...");
     obj->setRoutes();
-    
-    functionA(obj);
-
-    spd::drop_all();
 
 
-    //delete obj; // release memory
+    run(obj);
+
+
+
+    cout << "Exiting main" << endl;
+    //delete obj; // release memory (old)
     return 0;
 }
