@@ -1,8 +1,8 @@
 #project folders to ignore # start
 
-./old/
-./cmake-build-debug/
-./.idea/
+old/
+cmake-build-debug/
+.idea/
 
 #end
 
