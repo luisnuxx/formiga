@@ -6,12 +6,14 @@ set(CMAKE_CXX_STANDARD 17)
 include_directories("/usr/local/Cellar/boost/1.64.0_1/include/")
 link_directories("/usr/local/Cellar/boost/1.64.0_1/lib/")
 
+#dependencies
+include_directories(dependencies dependencies/crow/ dependencies/spdlog/include)
+
 
 include_directories(src/include)
-include_directories(src/include/spdlog/include)
 include_directories(src/include/app)
 
-
+# just copy to the build folder.
 file(COPY www DESTINATION ".")
 file(COPY log DESTINATION ".")
 
