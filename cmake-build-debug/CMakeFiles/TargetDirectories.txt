@@ -1,0 +1,3 @@
+/Users/luisnuxx/Development/C++/formiga/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/luisnuxx/Development/C++/formiga/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/luisnuxx/Development/C++/formiga/cmake-build-debug/CMakeFiles/formiga.dir

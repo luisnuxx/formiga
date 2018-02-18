@@ -6,7 +6,12 @@ set(CMAKE_CXX_STANDARD 17)
 include_directories("/usr/local/Cellar/boost/1.64.0_1/include/")
 link_directories("/usr/local/Cellar/boost/1.64.0_1/lib/")
 
-include_directories("src/include" "src/include/spdlog/include" "src/include/app")
+
+include_directories(src/include)
+include_directories(src/include/spdlog/include)
+include_directories(src/include/app)
+
+
 file(COPY www DESTINATION ".")
 file(COPY log DESTINATION ".")
 
@@ -19,3 +24,5 @@ set(CMAKE_EXE_LINKER_FLAGS "-O3 -lboost_system -lboost_thread-mt -rdynamic -stdl
 
 
 add_executable(formiga ${SOURCE_FILES})
+
+

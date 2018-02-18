@@ -1,0 +1,1 @@
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  -g -Wl,-search_paths_first -Wl,-headerpad_max_install_names -O3 -lboost_system -lboost_thread-mt -rdynamic -stdlib=libc++ CMakeFiles/formiga.dir/src/main.cpp.o  -o formiga  -L/usr/local/Cellar/boost/1.64.0_1/lib 
