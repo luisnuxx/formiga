@@ -8,7 +8,6 @@
 #include "container.hpp"
 
 #include <boost/filesystem.hpp>
-#include <boost/dll/runtime_symbol_info.hpp>
 
 namespace spd = spdlog;
 namespace fs = boost::filesystem;
