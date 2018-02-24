@@ -21,7 +21,6 @@ void run(const std::shared_ptr<AppObject>& obj){
 }
 
 
-
 int main()
 {
     std::cout << "Working directory:: " << luisnuxx::getWorkingDir() << endl;
@@ -36,10 +35,7 @@ int main()
     obj->logger->debug("Application started...");
     obj->setRoutes();
 
-
     run(obj);
-
-
 
     cout << "Exiting main" << endl;
     //delete obj; // release memory (old)

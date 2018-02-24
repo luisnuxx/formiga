@@ -1,0 +1,1 @@
+sudo pip install conan --upgrade --ignore-installed six

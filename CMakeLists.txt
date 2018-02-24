@@ -3,12 +3,14 @@ project(formiga)
 
 set(CMAKE_CXX_STANDARD 17)
 
-include_directories("/usr/local/Cellar/boost/1.64.0_1/include/")
-link_directories("/usr/local/Cellar/boost/1.64.0_1/lib/")
+#boost
+#include_directories("/usr/local/Cellar/boost/1.64.0_1/include/")
+#link_directories("/usr/local/Cellar/boost/1.64.0_1/lib/")
+include_directories("dependencies/boost/")
+link_directories("dependencies/boost/stage/lib/")
 
 #dependencies
-include_directories(dependencies dependencies/crow/ dependencies/spdlog/include)
-
+include_directories(dependencies dependencies/crow/include/ dependencies/spdlog/include)
 
 include_directories(src/include)
 include_directories(src/include/app)
