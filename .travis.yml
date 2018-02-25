@@ -48,7 +48,7 @@ script:
   - ./handle_deps.sh
   - uname -a
   - $CXX --version
-  - cmake .
+  - cmake . --build ./build
   - ls -l
   - pwd
   - cmake --build ./build --target all -- -j 2
