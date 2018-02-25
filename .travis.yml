@@ -50,7 +50,7 @@ script:
   # show OS/compiler version
   - uname -a
   - $CXX --version
-
+  - cmake .
   - cmake --build ./build --target all -- -j 2
 
 
