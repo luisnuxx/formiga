@@ -28,11 +28,18 @@ addons:
       - g++-4.9
       - g++-5
       - clang-3.6
-      - libboost1.55-all-dev
+      - libboost-all-dev
       - python-pip
 
+
+before_install:
+  # C++14
+  - sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test
+  - sudo apt-get update -qq
+
+
 install:
-  - if [ "$PUSH_COVERAGE" == "ON" ]; then pip install --user git+git://github.com/eddyxu/cpp-coveralls.git; fi
+  - ./handle_deps.sh
 
 before_script:
   - export CXX=$COMPILER CC=$CCOMPILER
@@ -41,8 +48,8 @@ before_script:
   - cmake --version
   - cmake ..
 
-script: make -j2 && ctest -j2
+script:
+  - cmake --build ./build --target all -- -j 2
 
 after_success:
-  - cd ..
-  - if [ "$PUSH_COVERAGE" == "ON" ]; then coveralls --gcov gcov-4.8 -i include --gcov-options '\-lp'; fi
+
