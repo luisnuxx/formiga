@@ -26,12 +26,12 @@ matrix:
   - os: linux
     compiler: gcc
     env:
-      - COMPILER=g++-5
+      - COMPILER=g++-4.9
       - CMAKE_OPTIONS=
     addons:
       apt:
         sources: ['ubuntu-toolchain-r-test']
-        packages: ['g++-5', 'valgrind', 'ninja-build']
+        packages: ['g++-4.9', 'valgrind', 'ninja-build']
 
   # CLANG
   - os: linux
@@ -55,7 +55,7 @@ before_script:
 script:
   # show OS/compiler version
   - mkdir -p build && cd build
-  - cmake .. ${CMAKE_OPTIONS}
+  - cmake .. ${CMAKE_OPTIONS} -DCMAKE_CXX_COMPILER=$COMPILER
   - ls -l
   - pwd
   - cmake --build . --config Release

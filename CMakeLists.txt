@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0.0)
+cmake_minimum_required(VERSION 2.8)
 
 project(formiga)
 
@@ -56,6 +56,7 @@ file(GLOB
         include/*.hpp)
 
 
+
 #set(SOURCE_FILES include/app/container.cpp include/app/routes.cpp include/object.hpp)set(SOURCE_FILES src/main.cpp src/utils.cpp include/utils.hpp src/logger.cpp include/logger.h include/config.hpp)
 
 #set(CMAKE_EXE_LINKER_FLAGS "-O3 -lboost_system -lboost_thread -lboost_filesystem")
@@ -66,3 +67,5 @@ target_link_libraries(formiga ${Boost_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
 
 
 #-lboost_thread-mt -rdynamic -stdlib=libc++
+
+
