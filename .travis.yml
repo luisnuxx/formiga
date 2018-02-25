@@ -26,12 +26,12 @@ matrix:
   - os: linux
     compiler: gcc
     env:
-      - COMPILER=g++-5.4
+      - COMPILER=g++-5
       - CMAKE_OPTIONS=
     addons:
       apt:
         sources: ['ubuntu-toolchain-r-test']
-        packages: ['g++-5.4', 'valgrind', 'ninja-build']
+        packages: ['g++-5', 'valgrind', 'ninja-build']
 
   # CLANG
   - os: linux
