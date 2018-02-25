@@ -1,6 +1,5 @@
 language: cpp
 sudo: false
-
 notifications:
   email:
     recipients:
@@ -27,12 +26,12 @@ matrix:
   - os: linux
     compiler: gcc
     env:
-      - COMPILER=g++-4.9
+      - COMPILER=g++-5.4
       - CMAKE_OPTIONS=
     addons:
       apt:
         sources: ['ubuntu-toolchain-r-test']
-        packages: ['g++-4.9', 'valgrind', 'ninja-build']
+        packages: ['g++-5.4', 'valgrind', 'ninja-build']
 
   # CLANG
   - os: linux
