@@ -6,7 +6,8 @@
 #define FORMIGA_UTILS_H
 #include <iostream>
 #include <boost/filesystem.hpp>
-#include <boost/dll/runtime_symbol_info.hpp>
+
+
 namespace fs = boost::filesystem;
 
 // header

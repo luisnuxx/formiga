@@ -9,7 +9,8 @@ namespace luisnuxx
 {
     std::string getWorkingDir()
     {
-            fs::path path1(boost::dll::program_location());
-            return path1.string();
+        auto cwd = fs::current_path();
+        //fs::path path1(boost::dll::program_location());
+        return cwd.string();
     }
 }
