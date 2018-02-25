@@ -23,10 +23,10 @@ file(COPY log DESTINATION ".")
 set(SOURCE_FILES include/app/container.cpp include/app/routes.cpp include/object.hpp)
 set(SOURCE_FILES src/main.cpp src/utils.cpp include/utils.hpp src/logger.cpp include/logger.h include/config.hpp)
 
-set(CMAKE_EXE_LINKER_FLAGS "-O3 -DBOOST_NO_CXX11_SCOPED_ENUMS -lboost_system -lboost_filesystem -lboost_thread-mt -rdynamic")
+set(CMAKE_EXE_LINKER_FLAGS "-O3 -DBOOST_NO_CXX11_SCOPED_ENUMS -lboost_system -lboost_filesystem")
 
 
 add_executable(formiga ${SOURCE_FILES})
 
 
-#-stdlib=libc++
+#-lboost_thread-mt -rdynamic -stdlib=libc++
