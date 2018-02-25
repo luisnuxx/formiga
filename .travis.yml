@@ -41,12 +41,13 @@ matrix:
         packages: ['g++-6', 'clang-5.0']
 
 before_script:
+  #BOOST
+  - sudo apt-get update -qq
+  - sudo apt-get install libboost-all-dev
+  - sudo apt-get install libboost-thread-dev libboost-system-dev libboost-test-dev
   - ./handle_deps.sh
   - uname -a
   - $CXX --version
-  - sudo apt-get update -qq
-  - sudo apt-get install libboost-all-dev
-
 script:
   # show OS/compiler version
   - mkdir -p build && cd build
