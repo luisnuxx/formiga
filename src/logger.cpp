@@ -29,7 +29,7 @@ void Logger::critical(std::string txt) {
     logger->critical(txt);
 }
 
-std::shared_ptr<spd::logger>& Logger::getLogger(std::string txt) {
+std::shared_ptr<spd::logger>& Logger::getLogger() {
     return logger;
 }
 

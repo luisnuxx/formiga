@@ -16,7 +16,7 @@ class Logger {
         void error(std::string txt);
         void critical(std::string txt);
 
-        std::shared_ptr<spd::logger>& getLogger(std::string txt);
+        std::shared_ptr<spd::logger>& getLogger();
 
         ~Logger();
     private:

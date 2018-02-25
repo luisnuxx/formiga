@@ -1,15 +1,17 @@
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.0.0)
+
 project(formiga)
 
 set(CMAKE_CXX_STANDARD 17)
 
+set(PROJECT_SOURCE_DIR src)
 #boost
 #include_directories("/usr/local/Cellar/boost/1.64.0_1/include/")
 #link_directories("/usr/local/Cellar/boost/1.64.0_1/lib/")
-include_directories("dependencies/boost")
-link_directories("dependencies/boost/stage/lib")
+#include_directories("dependencies/boost")
+#link_directories("dependencies/boost/stage/lib")
 
-find_package(Tcmalloc)
+#find_package(Tcmalloc)
 find_package(Threads)
 find_package(OpenSSL)
 
@@ -33,25 +35,41 @@ endif()
 
 include_directories( ${Boost_INCLUDE_DIR} )
 
+set(PROJECT_INCLUDE_DIR
+        ${PROJECT_SOURCE_DIR}/include
+        )
+
+include_directories("${PROJECT_INCLUDE_DIR}")
+include_directories("${PROJECT_SOURCE_DIR}")
+
 
 #dependencies
-include_directories(dependencies dependencies/crow/include dependencies/spdlog/include)
+include_directories(include dependencies dependencies/crow/include dependencies/spdlog/include)
 
-include_directories(include)
-include_directories(include/app)
+#include_directories(include)
+#include_directories(include/app)
+
 
 # just copy to the build folder.
 file(COPY www DESTINATION ".")
 file(COPY log DESTINATION ".")
 
 #set(INCLUDE_FILES test_json.cpp)
-set(SOURCE_FILES include/app/container.cpp include/app/routes.cpp include/object.hpp)
-set(SOURCE_FILES src/main.cpp src/utils.cpp include/utils.hpp src/logger.cpp include/logger.h include/config.hpp)
 
-set(CMAKE_EXE_LINKER_FLAGS "-O3 -lboost_system -lboost_filesystem")
+file(GLOB
+        SOURCE_FILES
+        src/*.cpp
+        include/*.h
+        include/*.hpp)
 
+
+#set(SOURCE_FILES include/app/container.cpp include/app/routes.cpp include/object.hpp)set(SOURCE_FILES src/main.cpp src/utils.cpp include/utils.hpp src/logger.cpp include/logger.h include/config.hpp)
+
+#set(CMAKE_EXE_LINKER_FLAGS "-O3 -lboost_system -lboost_thread -lboost_filesystem")
+
+#add_executable(formiga ${SOURCE_FILES})
 add_executable(formiga ${SOURCE_FILES})
-
 target_link_libraries(formiga ${Boost_LIBRARIES})
+
 
 #-lboost_thread-mt -rdynamic -stdlib=libc++
