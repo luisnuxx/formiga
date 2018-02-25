@@ -42,12 +42,13 @@ matrix:
 
 before_script:
   - mkdir build
-
-script:
-  # show OS/compiler version
+  - cp CMakeLists.txt build
   - ./handle_deps.sh
   - uname -a
   - $CXX --version
+
+script:
+  # show OS/compiler version
   - cmake . --build ./build
   - ls -l
   - pwd

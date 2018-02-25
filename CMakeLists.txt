@@ -6,11 +6,11 @@ set(CMAKE_CXX_STANDARD 17)
 #boost
 #include_directories("/usr/local/Cellar/boost/1.64.0_1/include/")
 #link_directories("/usr/local/Cellar/boost/1.64.0_1/lib/")
-include_directories("dependencies/boost/")
-link_directories("dependencies/boost/stage/lib/")
+include_directories("dependencies/boost")
+link_directories("dependencies/boost/stage/lib")
 
 #dependencies
-include_directories(dependencies dependencies/crow/include/ dependencies/spdlog/include)
+include_directories(dependencies dependencies/crow/include dependencies/spdlog/include)
 
 include_directories(include)
 include_directories(include/app)
