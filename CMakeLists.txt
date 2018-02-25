@@ -5,11 +5,6 @@ project(formiga)
 set(CMAKE_CXX_STANDARD 17)
 
 set(PROJECT_SOURCE_DIR src)
-#boost
-#include_directories("/usr/local/Cellar/boost/1.64.0_1/include/")
-#link_directories("/usr/local/Cellar/boost/1.64.0_1/lib/")
-#include_directories("dependencies/boost")
-#link_directories("dependencies/boost/stage/lib")
 
 find_package(Tcmalloc)
 find_package(Threads)
@@ -45,9 +40,6 @@ include_directories("${PROJECT_SOURCE_DIR}")
 
 #dependencies
 include_directories(include dependencies dependencies/crow/include dependencies/spdlog/include)
-
-#include_directories(include)
-#include_directories(include/app)
 
 
 # just copy to the build folder.
