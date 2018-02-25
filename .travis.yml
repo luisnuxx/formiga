@@ -40,14 +40,12 @@ matrix:
         sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-trusty-5.0']
         packages: ['g++-6', 'clang-5.0']
 
-install:
-  - ./handle_deps.sh
-
 before_script:
   - mkdir build
 
 script:
   # show OS/compiler version
+  - ./handle_deps.sh
   - uname -a
   - $CXX --version
   - cmake .
