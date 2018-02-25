@@ -41,17 +41,15 @@ matrix:
         packages: ['g++-6', 'clang-5.0']
 
 before_script:
-  - mkdir build
-  - cp CMakeLists.txt build
   - ./handle_deps.sh
   - uname -a
   - $CXX --version
 
 script:
   # show OS/compiler version
-  - cmake . --build ./build
+  - cmake .
   - ls -l
   - pwd
-  - cmake --build ./build --target all -- -j 2
+  - cmake --target all -- -j 2
 
 
