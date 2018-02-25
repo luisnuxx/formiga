@@ -51,6 +51,8 @@ script:
   - uname -a
   - $CXX --version
   - cmake .
+  - ls -l
+  - pwd
   - cmake --build ./build --target all -- -j 2
 
 
