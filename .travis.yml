@@ -5,7 +5,7 @@ notifications:
   irc: "chat.freenode.net#formiga"
 
 #env:
-#  - OS_TYPE=centos OS_VERSION=7 ANSIBLE_VERSION=1.9.2
+#  - OS_TYPE=centos OS_VERSION=7
 
 branches:
   only:
@@ -47,9 +47,12 @@ before_script:
 
 script:
   # show OS/compiler version
-  - cmake .
+  - mkdir -p build && cd build
+  - cmake .. ${CMAKE_OPTIONS}
   - ls -l
   - pwd
-  - cmake --target all -- -j 2
+  - cmake --build . --config Release
+  - cd ..
+
 
 
