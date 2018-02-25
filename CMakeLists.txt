@@ -11,7 +11,7 @@ set(PROJECT_SOURCE_DIR src)
 #include_directories("dependencies/boost")
 #link_directories("dependencies/boost/stage/lib")
 
-#find_package(Tcmalloc)
+find_package(Tcmalloc)
 find_package(Threads)
 find_package(OpenSSL)
 
@@ -30,7 +30,7 @@ if (MSVC)
     find_package( Boost 1.52 COMPONENTS system thread regex REQUIRED )
 else()
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++1y -pedantic -Wextra")
-    find_package( Boost 1.52 COMPONENTS system thread filesystem REQUIRED )
+    find_package( Boost 1.52 COMPONENTS system filesystem thread REQUIRED )
 endif()
 
 include_directories( ${Boost_INCLUDE_DIR} )
@@ -69,7 +69,7 @@ file(GLOB
 
 #add_executable(formiga ${SOURCE_FILES})
 add_executable(formiga ${SOURCE_FILES})
-target_link_libraries(formiga ${Boost_LIBRARIES})
+target_link_libraries(formiga ${Boost_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
 
 
 #-lboost_thread-mt -rdynamic -stdlib=libc++
