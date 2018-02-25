@@ -5,6 +5,7 @@
 #ifndef FORMIGA_CONFIG_HPP
 #define FORMIGA_CONFIG_HPP
 #include <boost/iostreams/device/mapped_file.hpp>
+#include <experimental/string_view>
 #include <nlohmann/json.hpp>
 #include <iostream>
 #include <string>
