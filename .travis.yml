@@ -2,6 +2,11 @@ language: cpp
 sudo: false
 
 notifications:
+  email:
+    recipients:
+      - luisnuxx@outlook.com
+    on_success: change
+    on_failure: always
   irc: "chat.freenode.net#formiga"
 
 #env:
