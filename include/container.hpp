@@ -2,27 +2,28 @@
 #include <iostream>
 #include "routes.hpp"
 #include "logger.h"
+#include <config.hpp>
 using namespace std;
 
 
-class AppObject
+class Application
 {
-  private:
-
 
   public:
-    AppObject();     // constructor
+    Application();     // constructor
     crow::SimpleApp* getRouter();
     void setRoutes();
+    void setConfig(const shared_ptr<Config> &cfg);
     std::shared_ptr<Logger> logger;
-    ~AppObject();
- private:
+    ~Application();
+  private:
     crow::SimpleApp *router;
     Routes *routes;
+    shared_ptr<Config> cfg;
 };
 
  // constructor
-AppObject::AppObject()
+ Application::Application()
 {
 
     router = new crow::SimpleApp;
@@ -35,7 +36,7 @@ AppObject::AppObject()
     cout << "AppObject constructor called" << endl;
 }
 
-AppObject::~AppObject() // destructor, just an example
+Application::~Application() // destructor, just an example
 {
     delete routes;
     delete router;
@@ -47,15 +48,21 @@ void AppObject::setRouter(crow::SimpleApp *app)
   router = app;
 }
 */
-crow::SimpleApp* AppObject::getRouter()
+crow::SimpleApp* Application::getRouter()
 {
   return router;
 }
 
 
-void AppObject::setRoutes()
+void Application::setRoutes()
 {
     //routes.create(router);
+}
+
+void Application::setConfig(const shared_ptr<Config> &cfg) {
+    logger->info("Config object added to the Application");
+    //std::cout << "Config object added to the Application" << std::endl;
+    this->cfg = cfg;
 }
 
 

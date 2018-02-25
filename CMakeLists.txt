@@ -25,26 +25,27 @@ if (MSVC)
     find_package( Boost 1.52 COMPONENTS system thread regex REQUIRED )
 else()
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++1y -pedantic -Wextra")
-    find_package( Boost 1.52 COMPONENTS system filesystem thread REQUIRED )
+    find_package( Boost 1.55 COMPONENTS system filesystem iostreams thread REQUIRED )
 endif()
 
 include_directories( ${Boost_INCLUDE_DIR} )
 
-set(PROJECT_INCLUDE_DIR
-        ${PROJECT_SOURCE_DIR}/include
-        )
+set(PROJECT_INCLUDE_DIR include)
 
 include_directories("${PROJECT_INCLUDE_DIR}")
 include_directories("${PROJECT_SOURCE_DIR}")
 
-
 #dependencies
-include_directories(include dependencies dependencies/crow/include dependencies/spdlog/include)
+include_directories(dependencies)
+include_directories(dependencies/crow/include) #crow
+include_directories(dependencies/spdlog/include) #spdlog
+include_directories(dependencies/json/single_include) #json
 
 
 # just copy to the build folder.
 file(COPY www DESTINATION ".")
 file(COPY log DESTINATION ".")
+file(COPY config DESTINATION ".")
 
 #set(INCLUDE_FILES test_json.cpp)
 

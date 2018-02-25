@@ -5,6 +5,7 @@ USE_BOOST="no"
 CROW_DIR="crow"
 SPDLOG_DIR="spdlog"
 BOOST_DIR="boost"
+JSON_DIR="json"
 
 while getopts b: option
 do
@@ -37,6 +38,17 @@ if [ ! -d ${SPDLOG_DIR} ]; then
     git clone https://github.com/gabime/spdlog.git ${SPDLOG_DIR}
 else
   cd ${SPDLOG_DIR}
+  git stash
+  git pull
+  cd ${DEPS_DIR}
+fi
+
+
+## JSON
+if [ ! -d ${JSON_DIR} ]; then
+    git clone https://github.com/nlohmann/json.git ${JSON_DIR}
+else
+  cd ${JSON_DIR}
   git stash
   git pull
   cd ${DEPS_DIR}

@@ -7,6 +7,7 @@
 #include <signal.h>
 #include "container.hpp"
 #include <utils.hpp>
+#include <config.hpp>
 
 namespace spd = spdlog;
 
@@ -16,7 +17,7 @@ void sighandler(int sig)
     exit(0);
 }
 
-void run(const std::shared_ptr<AppObject>& obj){
+void run(const std::shared_ptr<Application>& obj){
     obj->getRouter()->port(18080).multithreaded().run();
 }
 
@@ -29,15 +30,19 @@ int main()
     signal(SIGTERM, &sighandler);
     signal(SIGINT, &sighandler);
 
-    auto obj = std::make_shared<AppObject>();
+    auto config = std::make_shared<Config>();
+    std::cout << config->get()["key1"] << std::endl;
+
+    auto obj = std::make_shared<Application>();
 
    // AppObject *obj = new AppObject(); (old)
     obj->logger->debug("Application started...");
     obj->setRoutes();
+    obj->setConfig(config);
 
     run(obj);
 
-    cout << "Exiting main" << endl;
+    std::cout << "Exiting main" << endl;
     //delete obj; // release memory (old)
     return 0;
 }
