@@ -12,8 +12,8 @@ link_directories("dependencies/boost/stage/lib/")
 #dependencies
 include_directories(dependencies dependencies/crow/include/ dependencies/spdlog/include)
 
-include_directories(src/include)
-include_directories(src/include/app)
+include_directories(include)
+include_directories(include/app)
 
 # just copy to the build folder.
 file(COPY www DESTINATION ".")
@@ -21,7 +21,7 @@ file(COPY log DESTINATION ".")
 
 #set(INCLUDE_FILES test_json.cpp)
 set(SOURCE_FILES include/app/container.cpp include/app/routes.cpp include/object.hpp)
-set(SOURCE_FILES src/main.cpp src/include/app/utils.cpp src/include/app/utils.hpp src/include/app/logger.cpp src/include/app/logger.h)
+set(SOURCE_FILES src/main.cpp src/utils.cpp include/utils.hpp src/logger.cpp include/logger.h include/config.hpp)
 
 set(CMAKE_EXE_LINKER_FLAGS "-O3 -lboost_system -lboost_thread-mt -rdynamic -stdlib=libc++")
 

@@ -1,7 +1,5 @@
 language: cpp
-
 sudo: false
-cache: ccache
 
 notifications:
   irc: "chat.freenode.net#formiga"
@@ -11,32 +9,15 @@ compiler:
 
 env:
   matrix:
-    - COMPILER=g++-4.8 CCOMPILER=gcc-4.8 PUSH_COVERAGE=ON
-    - COMPILER=g++-4.9 CCOMPILER=gcc-4.9
-    - COMPILER=g++-5 CCOMPILER=gcc-5
-    - COMPILER=clang++-3.6 CCOMPILER=clang-3.6
+    - COMPILER=clang++-5 CCOMPILER=clang-5
 
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-      - boost-latest
-      - llvm-toolchain-precise
-      - llvm-toolchain-precise-3.6
-    packages:
-      - g++-4.8
-      - g++-4.9
-      - g++-5
-      - clang-3.6
-      - libboost-all-dev
-      - python-pip
+env:
+  #matrix:
+  - OS_TYPE=centos OS_VERSION=6 ANSIBLE_VERSION=1.9.2
 
-
-before_install:
-  # C++14
-  - sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test
-  - sudo apt-get update -qq
-
+branches:
+  only:
+  - master
 
 install:
   - ./handle_deps.sh
@@ -44,9 +25,6 @@ install:
 before_script:
   - export CXX=$COMPILER CC=$CCOMPILER
   - mkdir build
-  - cd build
-  - cmake --version
-  - cmake ..
 
 script:
   - cmake --build ./build --target all -- -j 2
