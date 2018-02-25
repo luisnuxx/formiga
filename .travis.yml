@@ -4,30 +4,53 @@ sudo: false
 notifications:
   irc: "chat.freenode.net#formiga"
 
-compiler:
-  - gcc
-
-env:
-  matrix:
-    - COMPILER=clang++-5 CCOMPILER=clang-5
-
-env:
-  #matrix:
-  - OS_TYPE=centos OS_VERSION=6 ANSIBLE_VERSION=1.9.2
+#env:
+#  - OS_TYPE=centos OS_VERSION=7 ANSIBLE_VERSION=1.9.2
 
 branches:
   only:
   - master
 
+################
+# build matrix #
+################
+
+matrix:
+  include:
+
+  # GCC
+  - os: linux
+    compiler: gcc
+    env:
+      - COMPILER=g++-4.9
+      - CMAKE_OPTIONS=
+    addons:
+      apt:
+        sources: ['ubuntu-toolchain-r-test']
+        packages: ['g++-4.9', 'valgrind', 'ninja-build']
+
+  # CLANG
+  - os: linux
+    compiler: clang
+    env:
+      - COMPILER=clang++-5.0
+      - CMAKE_OPTIONS=
+    addons:
+      apt:
+        sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-trusty-5.0']
+        packages: ['g++-6', 'clang-5.0']
+
 install:
   - ./handle_deps.sh
 
 before_script:
-  - export CXX=$COMPILER CC=$CCOMPILER
   - mkdir build
 
 script:
+  # show OS/compiler version
+  - uname -a
+  - $CXX --version
+
   - cmake --build ./build --target all -- -j 2
 
-after_success:
 
