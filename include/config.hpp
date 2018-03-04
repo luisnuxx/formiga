@@ -8,6 +8,8 @@
 #include <nlohmann/json.hpp>
 #include <iostream>
 #include <string>
+#include <stdexcept>
+
 using namespace boost::iostreams;
 using json = nlohmann::json;
 
@@ -15,8 +17,10 @@ class Config {
 
     private:
         json cfg;
+        std::string filename = "./config/settings.json";
     public:
         Config();
+        Config(std::string filename);
         std::string loadFromFile();
         json get();
         virtual ~Config() {
@@ -26,9 +30,16 @@ class Config {
 Config::Config() {
     cfg = json::parse(this->loadFromFile());
 }
+
+Config::Config(std::string filename) {
+    this->filename = filename;
+    cfg = json::parse(this->loadFromFile());
+}
+
+
 std::string Config::loadFromFile() {
     //Initialize the memory-mapped file
-    mapped_file_source file("./config/settings.json");
+    mapped_file_source file(this->filename);
     //Read the entire file into a string
     std::string fileContent(file.data(), file.size());
     //Print the string

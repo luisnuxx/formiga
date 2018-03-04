@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8)
 
 project(formiga)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 
 set(PROJECT_SOURCE_DIR src)
 
@@ -24,7 +24,7 @@ if (MSVC)
     set(Boost_USE_STATIC_LIBS "On")
     find_package( Boost 1.54 COMPONENTS system thread regex REQUIRED )
 else()
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++1y -pedantic -Wextra")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++1z -pedantic -Wextra")
     find_package( Boost 1.54 COMPONENTS system filesystem iostreams thread REQUIRED )
 endif()
 
@@ -41,6 +41,7 @@ include_directories(dependencies/crow/include) #crow
 include_directories(dependencies/spdlog/include) #spdlog
 include_directories(dependencies/json/single_include) #json
 
+#include_directories(test_doctest/thirdparty/catch2) #catch - for unit testing
 
 # just copy to the build folder.
 file(COPY www DESTINATION ".")
@@ -56,6 +57,18 @@ file(GLOB
         include/*.hpp)
 
 
+
+
+##
+## TESTS
+## create and configure the unit test_catch2 target
+##
+include(CTest) #adds option BUILD_TESTING (default ON)
+
+if(BUILD_TESTING)
+    enable_testing()
+    add_subdirectory(test/test_catch2/)
+endif()
 
 #set(SOURCE_FILES include/app/container.cpp include/app/routes.cpp include/object.hpp)set(SOURCE_FILES src/main.cpp src/utils.cpp include/utils.hpp src/logger.cpp include/logger.h include/config.hpp)
 

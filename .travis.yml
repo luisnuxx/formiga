@@ -30,7 +30,7 @@ matrix:
       - CMAKE_OPTIONS=
     addons:
       apt:
-        sources: ['ubuntu-toolchain-r-test']
+        sources: ['ubuntu-toolchain-r-test_catch2']
         packages: ['g++-4.9', 'valgrind', 'ninja-build']
 
   # CLANG
@@ -41,14 +41,14 @@ matrix:
       - CMAKE_OPTIONS=
     addons:
       apt:
-        sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-trusty-5.0']
+        sources: ['ubuntu-toolchain-r-test_catch2', 'llvm-toolchain-trusty-5.0']
         packages: ['g++-6', 'clang-5.0']
 
 before_script:
   #BOOST
   - sudo apt-get update -qq
   - sudo apt-get install libboost-all-dev
-  - sudo apt-get install libboost-thread-dev libboost-system-dev libboost-test-dev
+  - sudo apt-get install libboost-thread-dev libboost-system-dev libboost-test_catch2-dev
   - ./handle_deps.sh
   - uname -a
   - $CXX --version
