@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8)
 
 project(formiga)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 14)
 
 set(PROJECT_SOURCE_DIR src)
 
@@ -24,7 +24,7 @@ if (MSVC)
     set(Boost_USE_STATIC_LIBS "On")
     find_package( Boost 1.54 COMPONENTS system thread regex REQUIRED )
 else()
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++1z -pedantic -Wextra")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++1y -pedantic -Wextra")
     find_package( Boost 1.54 COMPONENTS system filesystem iostreams thread REQUIRED )
 endif()
 
