@@ -59,6 +59,10 @@ before_script:
   - uname -a
   - $CXX --version
   - sudo apt-get install libv8-"$V8_VERSION"-dev -y
+
+install:
+  - if [ "$CXX" == "clang++" ]; then export CXXFLAGS="-stdlib=libstdc++"; fi
+  
 script:
   # show OS/compiler version
   - mkdir -p build && cd build
