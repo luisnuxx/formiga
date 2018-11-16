@@ -1,5 +1,7 @@
 language: cpp
 sudo: false
+dist: xenial
+
 notifications:
   email:
     recipients:
