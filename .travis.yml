@@ -31,6 +31,7 @@ matrix:
       - COMPILER=g++-7
       - CMAKE_OPTIONS=
       - V8_VERSION=6.6
+      - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
     addons:
       apt:
         sources: ['ubuntu-toolchain-r-test']
@@ -43,10 +44,15 @@ matrix:
       - COMPILER=clang++-5.0
       - CMAKE_OPTIONS=
       - V8_VERSION=6.6
+      - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0"
     addons:
       apt:
         sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-trusty-5.0']
-        packages: ['g++-7', 'clang-5.0']
+        packages: ['clang-5.0']
+
+        
+before_install:
+  - eval "${MATRIX_EVAL}"
 
 before_script:
   #BOOST
@@ -62,7 +68,7 @@ before_script:
 
 install:
   - if [ "$CXX" == "clang++" ]; then export CXXFLAGS="-stdlib=libstdc++"; fi
-  
+
 script:
   # show OS/compiler version
   - mkdir -p build && cd build
