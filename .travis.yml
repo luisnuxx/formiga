@@ -50,7 +50,7 @@ matrix:
         sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-trusty-5.0']
         packages: ['clang-5.0']
 
-        
+
 before_install:
   - eval "${MATRIX_EVAL}"
 
@@ -69,6 +69,14 @@ before_script:
 install:
   - if [ "$CXX" == "clang++" ]; then export CXXFLAGS="-stdlib=libstdc++"; fi
 
+addons:
+  apt:
+    sources:
+    - george-edison55-precise-backports
+    packages:
+    - cmake-data
+    - cmake
+    
 script:
   # show OS/compiler version
   - mkdir -p build && cd build
