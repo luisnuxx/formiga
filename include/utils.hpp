@@ -6,14 +6,16 @@
 #define FORMIGA_UTILS_H
 #include <iostream>
 #include <boost/filesystem.hpp>
-
+#include <boost/iostreams/device/mapped_file.hpp>
 
 namespace fs = boost::filesystem;
+using namespace boost::iostreams;
 
 // header
 namespace luisnuxx
 {
     std::string getWorkingDir() ;
+    std::string loadFileContent(std::string filename);
 }
 
 

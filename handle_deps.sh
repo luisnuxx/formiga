@@ -6,6 +6,7 @@ CROW_DIR="crow"
 SPDLOG_DIR="spdlog"
 BOOST_DIR="boost"
 JSON_DIR="json"
+TOOLSET="clang" # possible [gcc,clang]
 
 while getopts b: option
 do
@@ -62,15 +63,15 @@ fi
 if [ "${USE_BOOST}" == "yes" ]; then
     echo "CHECKING IF BOOST IS REQUIRED"
     if [ ! -d ${BOOST_DIR} ]; then
-        wget https://dl.bintray.com/boostorg/release/1.66.0/source/boost_1_66_0.tar.gz -O boost_install.tgz
+        wget https://dl.bintray.com/boostorg/release/1.68.0/source/boost_1_68_0.tar.gz -O boost_install.tgz
         tar -zxf boost_install.tgz
         rm -f boost_install.tgz
-        ln -s boost_1_66_0/ ${BOOST_DIR}
+        ln -s boost_1_68_0/ ${BOOST_DIR}
 
         #build boost
         cd ${BOOST_DIR}
         ./bootstrap.sh --prefix=/tmp/build-boost
-        ./b2 --build-dir=/tmp/build-boost toolset=gcc stage
+        ./b2 --build-dir=/tmp/build-boost toolset=${TOOLSET} stage
     fi
 fi
 

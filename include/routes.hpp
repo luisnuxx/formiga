@@ -1,25 +1,36 @@
+#ifndef FORMIGA_ROUTES_H
+#define FORMIGA_ROUTES_H
 #include "crow.h"
+#include <object.hpp>
+#include <utils.hpp>
+#include <container.hpp>
+
 using namespace std;
 class Routes {
-public:
-    Routes();
-    ~Routes();
-    void create(crow::SimpleApp *app);
-private:
+    public:
+        Routes(shared_ptr<Globals> globals);
+        ~Routes();
+
+        void create(shared_ptr<crow::SimpleApp> app);
+    private:
+        shared_ptr<Globals> _globals;
 
 };
 
 
-Routes::Routes() {
+Routes::Routes(shared_ptr<Globals> globals) {
+    this->_globals = globals;
     cout << "Routes constructor" << endl;
 }
+
 
 
 Routes::~Routes() {
 }
 
 
-void Routes::create(crow::SimpleApp *app) {
+
+void Routes::create(shared_ptr<crow::SimpleApp> app) {
     crow::mustache::set_base(".");
     CROW_ROUTE((*app), "/")([](){
         return "Hello world";
@@ -47,5 +58,19 @@ void Routes::create(crow::SimpleApp *app) {
         os << count << " bottles of beer!";
         return crow::response(os.str());
     });
-     
+
+    CROW_ROUTE((*app),"/js")
+    ([this]{
+        std::string resp = "";
+        std::string script = luisnuxx::loadFileContent("./www/js/demo1.js");
+        resp = this->_globals->v8_engine->Execute(script);
+        std::cout << " V8 :: RESPONSE :: " << resp << endl;
+        std::cout << " V8 :: EVALUATED SCRIPT :: " << script << endl;
+        return crow::response(resp);
+        //return crow::response("js");
+    });
+
 }
+
+
+#endif //FORMIGA_ROUTES_H

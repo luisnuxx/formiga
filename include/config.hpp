@@ -48,6 +48,7 @@ std::string Config::loadFromFile() {
     file.close();
     return fileContent;
 }
+
 json Config::get() {
     return cfg;
 }
