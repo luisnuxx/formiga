@@ -1,6 +1,6 @@
 ## MACOS
-OUT_FOLDER=/Users/luisnuxx/Development/C++/formiga/build/out
-BASE_PATH=/Users/luisnuxx/Development/C++/formiga
+OUT_FOLDER=${HOME}/Development/C++/formiga/build/out
+BASE_PATH=${HOME}/Development/C++/formiga
 
 V8_BASE_PATH=${BASE_PATH}/dependencies/libv8
 V8_INC_PATH=${V8_BASE_PATH}/include
@@ -17,7 +17,7 @@ then
     mkdir -p ${OUT_FOLDER}
     mkdir -p ${OUT_FOLDER}/log
     mkdir -p ${OUT_FOLDER}/v8
-    cp -r deps/* ${OUT_FOLDER}
+    cp -r ${BASE_PATH}/www ${BASE_PATH}/config ${OUT_FOLDER} 
     cp ${V8_BASE_PATH}/natives_blob.bin ${V8_BASE_PATH}/snapshot_blob.bin ${V8_BASE_PATH}/icudtl.dat ${OUT_FOLDER}/v8
 fi
 

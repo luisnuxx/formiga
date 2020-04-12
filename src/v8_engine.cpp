@@ -59,9 +59,11 @@ void V8Engine::Destroy() {
     V8::ShutdownPlatform();
     delete platform;
     delete create_params.array_buffer_allocator;
+    std::cout << "V8Engine::Destroy()" <<  std::endl;
 }
-std::string V8Engine::Execute(std::string js_script) {
 
+std::string V8Engine::Execute(std::string js_script) {
+    std::string res = "ERROR";
     create_params.array_buffer_allocator =
             v8::ArrayBuffer::Allocator::NewDefaultAllocator();
     //Isolate*
@@ -91,7 +93,7 @@ std::string V8Engine::Execute(std::string js_script) {
         TryCatch trycatch(isolate);
         Handle<String> source = String::NewFromUtf8(isolate,js_script.c_str(),
                                                    NewStringType::kNormal).ToLocalChecked();
-        std::string res = "ERROR";
+
         Handle<Script> script = Script::Compile(source);
 
 
@@ -149,9 +151,8 @@ std::string V8Engine::Execute(std::string js_script) {
                 res = *utf8;
             }
         }
-        return res;
     }
-
+    return res;
 }
 
 
