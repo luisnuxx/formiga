@@ -63,10 +63,11 @@ fi
 if [ "${USE_BOOST}" == "yes" ]; then
     echo "CHECKING IF BOOST IS REQUIRED"
     if [ ! -d ${BOOST_DIR} ]; then
-        wget https://dl.bintray.com/boostorg/release/1.68.0/source/boost_1_68_0.tar.gz -O boost_install.tgz
+        # wget https://dl.bintray.com/boostorg/release/1.72.0/source/boost_1_72_0.tar.gz -O boost_install.tgz
+        wget https://sourceforge.net/projects/boost/files/boost/1.69.0/boost_1_69_0.tar.gz/download -O boost_install.tgz
         tar -zxf boost_install.tgz
         rm -f boost_install.tgz
-        ln -s boost_1_68_0/ ${BOOST_DIR}
+        ln -s boost_1_69_0/ ${BOOST_DIR}
 
         #build boost
         cd ${BOOST_DIR}

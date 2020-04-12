@@ -8,8 +8,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "libv8/include/libplatform/libplatform.h"
-#include "libv8/include/v8.h"
+#include "libplatform/libplatform.h"
+#include "v8.h"
 #include <utils.hpp>
 #include <exception>
 

@@ -10,6 +10,24 @@ set(PROJECT_SOURCE_DIR src)
 find_package(Threads)
 find_package(OpenSSL)
 
+set(BASE_PATH "/Users/luisnuxx/Development/C++/formiga")
+set(V8_PATH "/Users/luisnuxx/Development/C++/V8/v8")
+set(V8_INC_PATH "${BASE_PATH}/dependencies/libv8/include")
+set(V8_LIB_PATH "${BASE_PATH}/dependencies/libv8/lib")
+
+set(V8_LINK_LIBS
+        "${V8_PATH}/out/x64.release/libv8_base.a"
+        "${V8_PATH}/out/x64.release/libv8_external_snapshot.a"
+        "${V8_PATH}/out/x64.release/libv8_libbase.a"
+        "${V8_PATH}/out/x64.release/libv8_libplatform.a"
+        "${V8_PATH}/out/x64.release/libv8_libsampler.a"
+        "${V8_PATH}/out/x64.release/libicuuc.a"
+        "${V8_PATH}/out/x64.release/libicui18n.a"
+        "${V8_PATH}/out.gn/x64.release/obj/src/inspector/libinspector.a"
+        )
+# file(GLOB V8_LIBRARIES "${V8_PATH}//out/x64.release/*.a")
+list(JOIN V8_LINK_LIBS " " V8_LIBRARIES)
+message("V8 LIBRARIES = ${V8_LIBRARIES}")
 if(OPENSSL_FOUND)
     include_directories(${OPENSSL_INCLUDE_DIR})
 endif()
@@ -21,17 +39,39 @@ if (NOT CMAKE_BUILD_TYPE)
 endif()
 
 if (MSVC)
-    set(Boost_USE_STATIC_LIBS "On")
-    find_package( Boost 1.54 COMPONENTS system thread regex REQUIRED )
-else()
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++1z -pedantic -Wextra")
-    find_package( Boost 1.54 COMPONENTS system filesystem iostreams thread REQUIRED )
-endif()
+    set(Boost_USE_STATIC_LIBS "On)")
+    find_package( Boost 1.54 COMPONENTS system filesystem REQUIRED )
 
+else()
+    # OSX - SDK
+    if(APPLE)
+        # for MacOS X or iOS, watchOS, tvOS (since 3.10.3)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++14 --sysroot ${CMAKE_OSX_SYSROOT} ${CMAKE_CXX_FLAGS}")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${V8_INC_PATH} ")
+
+
+        # add_library(LIB_V8_BASE STATIC "${V8_PATH}/out/x64.release/libv8_base.a" )
+        # list(JOIN V8_LINK_LIBS " " V8_LINK_LIBS_2)
+
+
+        # set(CMAKE_CXX_STANDARD_LIBRARIES ${V8_LINK_LIBS_2})
+    endif()
+
+    if(UNIX AND NOT APPLE)
+        # for Linux, BSD, Solaris, Minix
+        set(Boost_USE_STATIC_LIBS "On)")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++14 ") #-pedantic -Wextra
+    endif()
+
+    find_package( Boost 1.54 COMPONENTS system filesystem REQUIRED )
+
+endif()
 include_directories( ${Boost_INCLUDE_DIR} )
 
 set(PROJECT_INCLUDE_DIR include)
 #set(V8_LIB lib)
+
+
 
 
 include_directories("${PROJECT_INCLUDE_DIR}")
@@ -48,28 +88,12 @@ include_directories(/Users/luisnuxx/Development/C++/V8/v8/include) #V8
 include_directories(/Users/luisnuxx/Development/C++/V8/v8/out/x64.release)
 include_directories(/Users/luisnuxx/Development/C++/V8/v8/)
 
-set(WL_START_GROUP "-Wl,--start-group")
-set(WL_END_GROUP "-Wl,--end-group")
 
-set(V8_PATH "/Users/luisnuxx/Development/C++/V8/v8/")
-set(V8_LINK_LIBS
-        "${V8_PATH}/out/x64.release/libv8_base.a"
-        "${V8_PATH}/out/x64.release/libv8_external_snapshot.a"
-        "${V8_PATH}/out/x64.release/libv8_libbase.a"
-        "${V8_PATH}/out/x64.release/libv8_libplatform.a"
-        "${V8_PATH}/out/x64.release/libv8_libsampler.a"
-        "${V8_PATH}/out/x64.release/libicuuc.a"
-        "${V8_PATH}/out/x64.release/libicui18n.a"
-        "${V8_PATH}/out.gn/x64.release/obj/src/inspector/libinspector.a"
-        )
-
-#-Wno-unused-variable
-
-#SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${V8_LINK_LIBS} -lrt -ldl -pthread")
-
-
+MESSAGE(STATUS "Boost_IOSTREAMS: ${Boost_IOSTREAMS}")
 MESSAGE(STATUS "Compiler Flags: ${CMAKE_CXX_FLAGS}")
 MESSAGE(STATUS "V8_LINK_LIBS: ${V8_LINK_LIBS}")
+MESSAGE(STATUS "BOOST LIBRARIES: ${Boost_LIBRARIES}")
+
 if (CMAKE_DEBUG)
     MESSAGE(STATUS "Linker Libs: ${V8_LINK_LIBS}")
 endif()
@@ -105,19 +129,18 @@ if(BUILD_TESTING)
 endif()
 
 
+# set(SOURCE_FILES include/app/container.cpp include/app/routes.cpp include/object.hpp)set(SOURCE_FILES src/main.cpp src/utils.cpp include/utils.hpp src/logger.cpp include/logger.h include/config.hpp)
 
-#set(SOURCE_FILES include/app/container.cpp include/app/routes.cpp include/object.hpp)set(SOURCE_FILES src/main.cpp src/utils.cpp include/utils.hpp src/logger.cpp include/logger.h include/config.hpp)
+# set(CMAKE_EXE_LINKER_FLAGS "-O3 -lboost_system -lboost_filesystem  ")
+set(CMAKE_CXX_STANDARD_LIBRARIES " ${V8_LIBRARIES} " )
 
-#set(CMAKE_EXE_LINKER_FLAGS "-O3 -lboost_system -lboost_thread -lboost_filesystem")
-
-#add_executable(formiga ${SOURCE_FILES})
 add_executable(formiga ${SOURCE_FILES})
+#message("LIBRARIES = ${V8_LIBRARIES}")
 
 target_link_libraries(formiga
         ${Boost_LIBRARIES}
-        ${V8_LINK_LIBS}
         )
-
+# ${V8_LINK_LIBS_2}
 
 #${CMAKE_THREAD_LIBS_INIT}
 #-lboost_thread-mt -rdynamic -stdlib=libc++

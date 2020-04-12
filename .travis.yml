@@ -76,7 +76,7 @@ addons:
     packages:
     - cmake-data
     - cmake
-    
+
 script:
   # show OS/compiler version
   - mkdir -p build && cd build

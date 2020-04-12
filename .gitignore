@@ -4,7 +4,8 @@ cmake-build-debug/
 .idea/
 ignore/
 dependencies/
-build/
+
+build/out/
 
 #end
 
@@ -41,5 +42,6 @@ build/
 *.out
 *.app
 
-
-
+!.vscode
+!/build/out/
+!/build/out/

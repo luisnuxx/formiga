@@ -63,9 +63,14 @@ void Routes::create(shared_ptr<crow::SimpleApp> app) {
     ([this]{
         std::string resp = "";
         std::string script = luisnuxx::loadFileContent("./www/js/demo1.js");
-        resp = this->_globals->v8_engine->Execute(script);
-        std::cout << " V8 :: RESPONSE :: " << resp << endl;
-        std::cout << " V8 :: EVALUATED SCRIPT :: " << script << endl;
+        // std::cout << script << endl;
+        try {
+            resp = this->_globals->v8_engine->Execute(script);
+        } catch (const std::exception& e) {
+            std::cout << "Exception :: " <<  e.what() << std::endl;
+        }
+        // std::cout << " V8 :: RESPONSE :: " << resp << endl;
+        // std::cout << " V8 :: EVALUATED SCRIPT :: " << script << endl;
         return crow::response(resp);
         //return crow::response("js");
     });

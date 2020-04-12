@@ -41,6 +41,7 @@ int main()
     auto config = std::make_shared<Config>();
     std::cout << config->get()["key1"] << std::endl;
 
+
     auto v8_engine = std::make_shared<V8Engine>();
     v8_engine->Initialize();
 
@@ -50,7 +51,6 @@ int main()
 
     auto staticTest = make_unique<StaticTest>();
     staticTest->setFoo(100);
-
 
 
    // AppObject *obj = new AppObject(); (old)
@@ -69,6 +69,7 @@ int main()
 
 
     v8_engine->Destroy();
+
     std::cout << "Foo Value is :: " <<  staticTest->getFoo() << endl;
     std::cout << "Exiting main" << endl;
     //delete obj; // release memory (old)

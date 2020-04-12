@@ -4,6 +4,8 @@ set(CATCH2_PATH ${CMAKE_SOURCE_DIR}/test/test_catch2/thirdparty/catch2)
 
 message(STATUS "CATCH2_PATH:: DUMP :: " ${CATCH2_PATH})
 
+
+
 #############################################################################
 # Catch library with the main function to speed up build
 #############################################################################
@@ -17,9 +19,23 @@ target_include_directories(catch_main PRIVATE ${CATCH2_PATH})
 if (MSVC)
     set(Boost_USE_STATIC_LIBS "On)")
     find_package( Boost 1.54 COMPONENTS system filesystem iostreams regex thread REQUIRED )
+
 else()
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++1y -pedantic -Wextra")
+    # OSX - SDK
+    if(APPLE)
+        # for MacOS X or iOS, watchOS, tvOS (since 3.10.3)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++14 --sysroot ${CMAKE_OSX_SYSROOT} ${CMAKE_CXX_FLAGS}")
+    endif()
+
+    if(UNIX AND NOT APPLE)
+        # for Linux, BSD, Solaris, Minix
+        set(Boost_USE_STATIC_LIBS "On)")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++14 -pedantic -Wextra")
+
+    endif()
+
     find_package( Boost 1.54 COMPONENTS system filesystem iostreams regex thread REQUIRED )
+
 endif()
 
 include_directories( ${Boost_INCLUDE_DIR} )
