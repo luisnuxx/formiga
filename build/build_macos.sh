@@ -1,6 +1,7 @@
 ## MACOS
 OUT_FOLDER=${HOME}/Development/C++/formiga/build/out
 BASE_PATH=${HOME}/Development/C++/formiga
+CPP_VERSION=c++2a
 
 V8_BASE_PATH=${BASE_PATH}/dependencies/libv8
 V8_INC_PATH=${V8_BASE_PATH}/include
@@ -21,12 +22,12 @@ then
     cp ${V8_BASE_PATH}/natives_blob.bin ${V8_BASE_PATH}/snapshot_blob.bin ${V8_BASE_PATH}/icudtl.dat ${OUT_FOLDER}/v8
 fi
 
-clang++ -c -static -std=c++14 -Wall -I ${BASE_PATH}/include -I ${BASE_PATH}/dependencies/spdlog/include ${BASE_PATH}/src/logger.cpp -o ${OUT_FOLDER}/logger.o
-clang++ -c -static -std=c++14 -Wall -I ${BASE_PATH}/include  ${BASE_PATH}/src/utils.cpp -o ${OUT_FOLDER}/utils.o
-clang++ -c -static -std=c++14 -Wall -I ${BASE_PATH}/include -I${V8_INC_PATH} ${BASE_PATH}/src/v8_engine.cpp -o ${OUT_FOLDER}/v8_engine.o
-clang++ -c -static -std=c++14 -Wall -I ${BASE_PATH}/include -I${V8_INC_PATH} -I${CROW_INC_PATH} -I${JSON_INC_PATH} -I${SPDLOG_INC_PATH} ${BASE_PATH}/src/main.cpp -o ${OUT_FOLDER}/main.o
+clang++ -c -static -std=${CPP_VERSION} -Wall -I ${BASE_PATH}/include -I ${BASE_PATH}/dependencies/spdlog/include ${BASE_PATH}/src/logger.cpp -o ${OUT_FOLDER}/logger.o
+clang++ -c -static -std=${CPP_VERSION} -Wall -I ${BASE_PATH}/include  ${BASE_PATH}/src/utils.cpp -o ${OUT_FOLDER}/utils.o
+clang++ -c -static -std=${CPP_VERSION} -Wall -I ${BASE_PATH}/include -I${V8_INC_PATH} ${BASE_PATH}/src/v8_engine.cpp -o ${OUT_FOLDER}/v8_engine.o
+clang++ -c -static -std=${CPP_VERSION} -Wall -I ${BASE_PATH}/include -I${V8_INC_PATH} -I${CROW_INC_PATH} -I${JSON_INC_PATH} -I${SPDLOG_INC_PATH} ${BASE_PATH}/src/main.cpp -o ${OUT_FOLDER}/main.o
 
-clang++ -std=c++14 -Wall -L${BOOST_LIB_PATH} -lboost_system -lboost_filesystem -lpthread \
+clang++ -std=${CPP_VERSION} -Wall -L${BOOST_LIB_PATH} -lboost_system -lboost_filesystem -lpthread \
     ${BOOST_LIB_PATH}/libboost_system.a ${BOOST_LIB_PATH}/libboost_iostreams.a \
     ${BOOST_LIB_PATH}/libboost_thread.a ${BOOST_LIB_PATH}/libboost_filesystem.a \
     ${V8_LIB_PATH}/*.a -L. -I. \

@@ -1,91 +1,37 @@
-language: cpp
-sudo: false
+language: c++
+
+sudo: required
 dist: xenial
 
-notifications:
-  email:
-    recipients:
-      - luisnuxx@outlook.com
-    on_success: change
-    on_failure: always
-  irc: "chat.freenode.net#formiga"
+compiler:
+  - gcc
+  - clang
 
-#env:
-#  - OS_TYPE=centos OS_VERSION=7
-
-branches:
-  only:
-  - master
-
-################
-# build matrix #
-################
-
-matrix:
-  include:
-
-  # GCC
-  - os: linux
-    compiler: gcc
-    env:
-      - COMPILER=g++-7
-      - CMAKE_OPTIONS=
-      - V8_VERSION=6.6
-      - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
-    addons:
-      apt:
-        sources: ['ubuntu-toolchain-r-test']
-        packages: ['g++-7', 'valgrind', 'ninja-build']
-
-  # CLANG
-  - os: linux
-    compiler: clang
-    env:
-      - COMPILER=clang++-5.0
-      - CMAKE_OPTIONS=
-      - V8_VERSION=6.6
-      - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0"
-    addons:
-      apt:
-        sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-trusty-5.0']
-        packages: ['clang-5.0']
-
+env:
+  - V8_VERSION=6.6
 
 before_install:
-  - eval "${MATRIX_EVAL}"
-
-before_script:
-  #BOOST
-  - sudo add-apt-repository ppa:pinepain/libv8-archived -y
   - sudo add-apt-repository ppa:pinepain/libv8 -y
-  - sudo apt-get update -qq
+  - sudo apt-get update -q
+  - sudo apt-get install libv8-"$V8_VERSION"-dev -y
+  #BOOST
   - sudo apt-get install libboost-all-dev
   - sudo apt-get install libboost-thread-dev libboost-system-dev libboost-test-dev
   - ./handle_deps.sh
   - uname -a
   - $CXX --version
-  - sudo apt-get install libv8-"$V8_VERSION"-dev -y
 
 install:
   - if [ "$CXX" == "clang++" ]; then export CXXFLAGS="-stdlib=libstdc++"; fi
 
-addons:
-  apt:
-    sources:
-    - george-edison55-precise-backports
-    packages:
-    - cmake-data
-    - cmake
 
 script:
   # show OS/compiler version
-  - mkdir -p build && cd build
+  - mkdir -p cmake-build && cd cmake-build
   - cmake .. ${CMAKE_OPTIONS} -DCMAKE_CXX_COMPILER=$COMPILER
   - ls -l
   - pwd
   - LD_LIBRARY_PATH=.:/opt/libv8-${V8_VERSION}/lib
   - cmake --build . --config Release
   - cd ..
-
-
 

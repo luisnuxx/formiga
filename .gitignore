@@ -4,9 +4,8 @@ cmake-build-debug/
 .idea/
 ignore/
 dependencies/
-
-build/out/
-
+build/out/*
+build/out
 #end
 
 # Prerequisites
